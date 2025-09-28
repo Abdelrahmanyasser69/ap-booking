@@ -57,7 +57,6 @@ public class HomePage extends BasePage {
     public String getFromVal(){ return readValue(dateFromInput); }
     public String getToVal()  { return readValue(dateToInput); }
 
-    // ====== Search action (مع معالجة click intercepted) ======
     public ResultsPage search() {
         for (By b : searchButtonCandidates) {
             List<WebElement> list = driver.findElements(b);
@@ -69,13 +68,11 @@ public class HomePage extends BasePage {
         throw new NoSuchElementException("Search button not found");
     }
 
-    /** نفس search لكن يرجّع this (علشان AllScenariosTest بينادي clickSearch() قبل ما يعمل new ResultsPage) */
     public HomePage clickSearch() {
         search();
         return this;
     }
 
-    // ====== Calendar helpers (لو احتجتها) ======
     public HomePage openFromCalendar() { click(dateFromInput); waitForCalendarOpen(); return this; }
     public HomePage openToCalendar()   { click(dateToInput);   waitForCalendarOpen(); return this; }
 
@@ -143,7 +140,6 @@ public class HomePage extends BasePage {
         return false;
     }
 
-    // ====== Plus/Minus (لو هتستخدم الدروب داون) ======
     public HomePage adultsPlus()    { plusMinus(adultsInput, true);  return this; }
     public HomePage adultsMinus()   { plusMinus(adultsInput, false); return this; }
     public HomePage childrenPlus()  { plusMinus(childrenInput, true);  return this; }
@@ -194,9 +190,7 @@ public class HomePage extends BasePage {
         return false;
     }
 
-    // ====== Facade methods اللي محتاجها AllScenariosTest ======
 
-    /** اختار رينچ “كتابة مباشرة” (offsets من اليوم) */
     public HomePage selectDateRange(int fromOffsetDays, int toOffsetDays) {
         java.time.LocalDate base = java.time.LocalDate.now().plusDays(fromOffsetDays);
         java.time.LocalDate end  = java.time.LocalDate.now().plusDays(toOffsetDays);
@@ -205,28 +199,24 @@ public class HomePage extends BasePage {
         return this;
     }
 
-    /** كتابة تواريخ صريحة */
     public HomePage typeDateRange(String from, String to) {
         setDateFrom(from);
         setDateTo(to);
         return this;
     }
 
-    /** تعيين الضيوف أرقام */
     public HomePage setGuests(int adults, int children) {
         setAdults(adults);
         setChildren(children);
         return this;
     }
 
-    /** تعيين الضيوف سترينجز (لو التيست بيبعتها كسترينج) */
     public HomePage inputGuests(String adults, String children) {
         try { setAdults(Integer.parseInt(adults.trim())); } catch (Exception ignore) { setAdults(2); }
         try { setChildren(Integer.parseInt(children.trim())); } catch (Exception ignore) { setChildren(0); }
         return this;
     }
 
-    /** تطبيق فلتر كتابي (لو فيه input للبحث) */
     public HomePage applyFilter(String text) {
         List<By> candidates = Arrays.asList(
                 By.cssSelector("input[name='search_product']"),

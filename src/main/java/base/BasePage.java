@@ -29,7 +29,6 @@ public class BasePage {
         el.click();
     }
 
-    /** Click مع JS fallback لتفادي ElementClickIntercepted */
     protected void clickHard(By locator) {
         WebElement el = wait.until(ExpectedConditions.presenceOfElementLocated(locator));
         ((JavascriptExecutor) driver).executeScript("arguments[0].scrollIntoView({block:'center'});", el);
@@ -40,7 +39,6 @@ public class BasePage {
         }
     }
 
-    /** يرجّع أول عنصر ظاهر من مجموعة Locators (أو null لو لم يُعثر خلال مهلة قصيرة) */
     protected WebElement findAnyDisplayed(List<By> locators) {
         long end = System.currentTimeMillis() + 5_000;
         while (System.currentTimeMillis() < end) {

@@ -55,7 +55,6 @@ public class ResultsPage extends BasePage {
         return null;
     }
 
-    /** كل كارت لازم يحتوي "Adults: X" أو نص فيه كلمة Adult ورقم X */
     public boolean allCardsShowAdults(int expected) {
         List<WebElement> cards = getCards();
         if (cards.isEmpty()) return false;
@@ -71,7 +70,6 @@ public class ResultsPage extends BasePage {
                 }
             }
             if (!ok) {
-                // fallback: دوّر جلوبال لو الموقع بيعرض الليبل خارج الكارت
                 List<WebElement> globals = driver.findElements(By.cssSelector(".label-tooltip, .capacity, .meta, span"));
                 boolean foundGlobal = false;
                 for (WebElement g : globals) {
@@ -87,7 +85,6 @@ public class ResultsPage extends BasePage {
         return true;
     }
 
-    /** كل كارت لازم يحتوي "Childrens: Y" أو نص فيه Child ورقم Y */
     public boolean allCardsShowChildren(int expected) {
         List<WebElement> cards = getCards();
         if (cards.isEmpty()) return false;
