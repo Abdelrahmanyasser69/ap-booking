@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+<suite name="ApBooking-AllScenarios" verbose="1" parallel="false">
+    <parameter name="baseUrl" value="https://demo1.leotheme.com/ap_booking_demo/en/home-2.html"/>
+    <test name="Booking-Scenarios">
+        <classes>
+            <class name="tests.AllScenariosTest"/>
+        </classes>
+    </test>
+</suite>
+
